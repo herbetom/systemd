@@ -1,4 +1,4 @@
-/* SPDX-License-Identifier: LGPL-2.1+ */
+/* SPDX-License-Identifier: LGPL-2.1-or-later */
 
 #pragma once
 
@@ -14,14 +14,14 @@ typedef enum BatadvGatewayModes {
         BATADV_GATEWAY_MODE_CLIENT = BATADV_GW_MODE_CLIENT,
         BATADV_GATEWAY_MODE_SERVER = BATADV_GW_MODE_SERVER,
         _BATADV_GATEWAY_MODE_MAX,
-        _BATADV_GATEWAY_MODE_INVALID = -1,
+        _BATADV_GATEWAY_MODE_INVALID = -EINVAL,
 } BatadvGatewayModes;
 
 typedef enum BatadvRoutingAlgorithm {
         BATADV_ROUTING_ALGORITHM_BATMAN_V,
         BATADV_ROUTING_ALGORITHM_BATMAN_IV,
         _BATADV_ROUTING_ALGORITHM_MAX,
-        _BATADV_ROUTING_ALGORITHM_INVALID = -1,
+        _BATADV_ROUTING_ALGORITHM_INVALID = -EINVAL,
 } BatadvRoutingAlgorithm;
 
 typedef struct Batadv {

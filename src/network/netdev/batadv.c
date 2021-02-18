@@ -1,10 +1,10 @@
-/* SPDX-License-Identifier: LGPL-2.1+ */
+/* SPDX-License-Identifier: LGPL-2.1-or-later */
 
 #include <inttypes.h>
 #include <linux/genetlink.h>
 
-#include "fileio.h"
 #include "batadv.h"
+#include "fileio.h"
 #include "netlink-util.h"
 #include "network-internal.h"
 #include "networkd-manager.h"
@@ -12,7 +12,6 @@
 #include "stdio-util.h"
 #include "string-table.h"
 #include "string-util.h"
-
 
 static void batadv_init(NetDev *n) {
         BatmanAdvanced *b;
@@ -130,7 +129,7 @@ static int netdev_batadv_post_create(NetDev *netdev, Link *link, sd_netlink_mess
 
         r = sd_netlink_message_append_u32(message, BATADV_ATTR_MESH_IFINDEX, netdev->ifindex);
         if (r < 0)
-                return log_netdev_error_errno(netdev, r, "Failed to talk to iface: %m");
+                return log_netdev_error_errno(netdev, r, "Failed to set ifindex: %m");
 
         r = sd_netlink_message_append_u8(message, BATADV_ATTR_GW_MODE, b->gateway_mode);
         if (r < 0)
@@ -171,7 +170,7 @@ static int netdev_batadv_post_create(NetDev *netdev, Link *link, sd_netlink_mess
         r = netlink_call_async(netdev->manager->genl, NULL, message, netdev_batman_set_handler,
                                netdev_destroy_callback, netdev);
         if (r < 0)
-                return log_netdev_error_errno(netdev, r, "Could not set batman device message: %m");
+                return log_netdev_error_errno(netdev, r, "Could not send batman device message: %m");
 
         netdev_ref(netdev);
 
